@@ -161,7 +161,7 @@ class TwitterDL:
 			if gmail_auth == "":
 				server.login(email_user) #untested 
 			else:
-				server.login(gmail_user, gmail_auth)
+				server.login(email_user, gmail_auth)
 			server.sendmail(sent_from, to, msg.as_string())
 			server.close()
 			print('\nEmail Sent!')
