@@ -140,8 +140,8 @@ class TwitterDL:
 		source = source.replace("<JOBCOUNT>",jobcount)
 		source = source.replace("<TIMESTAMP>",timestamp)
 
-		gmail_user = str(config['EMAIL']['email_address'])
-		gmail_password = str(config['EMAIL']['app_pass'])
+		email_user = str(config['EMAIL']['email_address'])
+		gmail_auth = str(config['EMAIL']['gmail_app_pass'])
 		
 		sent_from = str(config['EMAIL']['from_address'])
 		to = str(config['EMAIL']['email_address'])
@@ -156,9 +156,12 @@ class TwitterDL:
 		msg.attach(MIMEText(text, 'plain'))
 		msg.attach(MIMEText(html, 'html'))
 		try:
-			server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+			server = smtplib.SMTP_SSL(str(config['EMAIL']['email_server']), config['EMAIL']['email_port_ssl'])
 			server.ehlo()
-			server.login(gmail_user, gmail_password)
+			if gmail_auth == "":
+				server.login(email_user) #untested 
+			else:
+				server.login(gmail_user, gmail_auth)
 			server.sendmail(sent_from, to, msg.as_string())
 			server.close()
 			print('\nEmail Sent!')
