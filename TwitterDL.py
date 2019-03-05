@@ -61,7 +61,7 @@ class TwitterDL:
 	Main class for twitterDL functions.
 	"""
 	
-	userlist = ['FakeryWay']
+	userlist = []
 	retry = False
 	retrycount = 0
 	current_user = ""
