@@ -46,7 +46,7 @@ class TwitterAuth:
 	"""
 	Tweepy auth setup.
 	"""
-	def parsedbonfig(config_file):
+	def parsedconfig(config_file):
 		config = configparser.ConfigParser()
 		config.read(config_file)
 		return config 
@@ -244,7 +244,7 @@ class TwitterDL:
 					
 current_path = os.path.dirname(os.path.realpath(__file__))
 config_path = path('config.cfg')
-config = TwitterAuth.parsedbonfig(config_path)
+config = TwitterAuth.parsedconfig(config_path)
 download_dir = config['DOWNLOADING']['download_folder']
 tweetLimit = int(config['DOWNLOADING']['tweet_limit'])
 auth = TwitterAuth.authorise_twitter_api(config)
