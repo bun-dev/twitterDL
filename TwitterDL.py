@@ -141,7 +141,7 @@ class TwitterDL:
 		source = source.replace("<TIMESTAMP>",timestamp)
 
 		email_user = str(config['EMAIL']['email_address'])
-		email_auth = str(config['EMAIL']['gmail_app_pass'])
+		email_auth = str(config['EMAIL']['email_auth'])
 		
 		sent_from = str(config['EMAIL']['from_address'])
 		to = str(config['EMAIL']['email_address'])
