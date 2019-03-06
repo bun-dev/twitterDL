@@ -24,7 +24,7 @@ import json
 import urllib.parse
 import sqlite3
 import time
-
+import re
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -115,7 +115,7 @@ class TwitterDL:
 			self.retrycount = self.retrycount+1
 			if self.retrycount < 6:
 				retry = True			
-				process_users()
+				self.process_users()
 			else:
 				print("Retry count exceeded limit,closing.")
 				sys.exit()
@@ -141,7 +141,7 @@ class TwitterDL:
 		source = source.replace("<TIMESTAMP>",timestamp)
 
 		email_user = str(config['EMAIL']['email_address'])
-		gmail_auth = str(config['EMAIL']['gmail_app_pass'])
+		email_auth = str(config['EMAIL']['gmail_app_pass'])
 		
 		sent_from = str(config['EMAIL']['from_address'])
 		to = str(config['EMAIL']['email_address'])
@@ -158,10 +158,8 @@ class TwitterDL:
 		try:
 			server = smtplib.SMTP_SSL(str(config['EMAIL']['email_server']), config['EMAIL']['email_port_ssl'])
 			server.ehlo()
-			if gmail_auth == "":
-				server.login(email_user) #untested 
-			else:
-				server.login(email_user, gmail_auth)
+			
+			server.login(email_user, email_auth)
 			server.sendmail(sent_from, to, msg.as_string())
 			server.close()
 			print('\nEmail Sent!')
